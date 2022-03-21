@@ -1,12 +1,12 @@
-package infrastructure;
-
-import domain.FileType;
+package domain.file;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class File {
     Path path;
@@ -40,9 +40,12 @@ public class File {
         return fileName.substring(index + 1);
     }
 
-    public String readToString() {
+    public List<Line> lines() {
         try {
-            return Files.readString(path);
+            return Files.readAllLines(path)
+                    .stream()
+                    .map(Line::of)
+                    .collect(Collectors.toList());
         } catch (IOException exception) {
             throw new IllegalStateException("Failed to read file");
         }

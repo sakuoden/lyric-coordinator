@@ -1,9 +1,7 @@
-import infrastructure.File;
-import infrastructure.InputService;
+import domain.file.File;
+import service.FileReadService;
 import org.junit.jupiter.api.Test;
-
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import path.ForTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -12,33 +10,23 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class InputTest {
     @Test
     void getFileExtensionTest() {
-        File file = File.from(fileAbsolutePathForTest());
+        File file = File.from(ForTest.fileAbsolutePath());
         assertEquals("txt", file.extension());
     }
 
     @Test
     void confirmFileTypeTest() {
-        File testFile = File.from(fileAbsolutePathForTest());
+        File testFile = File.from(ForTest.fileAbsolutePath());
         assertTrue(testFile.isValid());
 
-        File invalidFile = File.from(invalidFileAbsolutePathForTest());
+        File invalidFile = File.from(ForTest.invalidFileAbsolutePath());
         assertFalse(invalidFile.isValid());
     }
 
     @Test
     void toStringTest() {
-        InputService inputService = InputService.from(fileAbsolutePathForTest());
-        assertEquals(expected(), inputService.toString());
-    }
-
-    private String fileAbsolutePathForTest() {
-        Path path = Paths.get("src","test", "resources", "jack-the-newest", "なんか.txt");
-        return path.toString();
-    }
-
-    private String invalidFileAbsolutePathForTest() {
-        Path path = Paths.get("src","test", "resources", "jack-the-newest", "なんか.pdf");
-        return path.toString();
+        FileReadService fileReadService = FileReadService.from(ForTest.fileAbsolutePath());
+        assertEquals(expected(), fileReadService.toString());
     }
 
     private String expected() {
