@@ -3,3 +3,6 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+
+# Because of the assumption that lyric files are placed here
+src/main/resources
