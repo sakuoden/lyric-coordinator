@@ -3,6 +3,8 @@ package service;
 import domain.file.File;
 import domain.file.Line;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 public class FileReadService {
@@ -12,7 +14,13 @@ public class FileReadService {
         this.lines = lines;
     }
 
-    public static FileReadService from(String lyricTextPath) {
+    public static FileReadService fileName(String fileName) {
+        String fileNameWithResources = String.format("src/main/resources/%s", fileName);
+        Path path = Paths.get(fileNameWithResources);
+        return path(path.toAbsolutePath().toString());
+    }
+
+    public static FileReadService path(String lyricTextPath) {
         File lyricFile = File.from(lyricTextPath);
         if (! lyricFile.isValid()) throw new IllegalArgumentException("Invalid file type");
 

@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class CoordinateTest {
     @Test
     void toHtml() {
-        List<Line> lines = FileReadService.from(ForTest.fileAbsolutePath()).toLines();
+        List<Line> lines = FileReadService.path(ForTest.fileAbsolutePath()).toLines();
 
         // TODO 必要だったら読み込んだ文章の整形サービスを作る
 
