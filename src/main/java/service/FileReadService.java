@@ -8,10 +8,11 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class FileReadService {
-    List<Line> lines;
+    File file;
 
-    FileReadService(List<Line> lines) {
-        this.lines = lines;
+    FileReadService(File file) {
+        if (! file.isValid()) throw new IllegalArgumentException("Invalid file type");
+        this.file = file;
     }
 
     public static FileReadService fileName(String fileName) {
@@ -21,22 +22,18 @@ public class FileReadService {
     }
 
     public static FileReadService path(String lyricTextPath) {
-        File lyricFile = File.from(lyricTextPath);
-        if (! lyricFile.isValid()) throw new IllegalArgumentException("Invalid file type");
-
-        List<Line> lines = lyricFile.lines();
-        
-        return new FileReadService(lines);
+        File file = File.from(lyricTextPath);
+        return new FileReadService(file);
     }
 
     public List<Line> toLines() {
-        return lines;
+        return file.lines();
     }
 
     @Override
     public String toString() {
-        return "InputService{" +
-                "lines=" + lines +
+        return "FileReadService{" +
+                "file=" + file +
                 '}';
     }
 }
